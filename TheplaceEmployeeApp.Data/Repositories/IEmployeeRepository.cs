@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TheplaceEmployeeApp.Data.Repositories
 {
-    internal interface IEmployeeRepository
+    public interface IEmployeeRepository
     {
         public void CreateEmployee(Employee newEmployee);
 

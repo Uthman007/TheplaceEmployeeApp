@@ -48,5 +48,18 @@ namespace TheplaceEmployeeApp.Data.Entities
 
         [Required]
         public SkinColor SkinColor { get; set; }
+
+        [Required]
+        public BranchName BranchName { get; set; }
+
+        [Required]
+        public Department Department { get; set; }
+
+        [Required]
+        public StateName StateName { get; set; }
+
+        [Required]
+        public Designation Designation { get; set; }    
+
     }
 }

@@ -1,7 +1,20 @@
+using TheplaceEmployeeApp.Data;
+using TheplaceEmployeeApp.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+//Service for DB Connection
+var connectionString = builder.Configuration.GetConnectionString("TheplaceEmployeeApp");
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+
+
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 var app = builder.Build();
 
