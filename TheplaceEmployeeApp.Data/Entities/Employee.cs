@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static TheplaceEmployeeApp.Data.Enum;
+using  TheplaceEmployeeApp.Data.Enums;
 
 
 

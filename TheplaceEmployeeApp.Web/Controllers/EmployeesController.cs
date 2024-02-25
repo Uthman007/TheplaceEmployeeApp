@@ -1,10 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using TheplaceEmployeeApp.Data.Entities;
+using TheplaceEmployeeApp.Data.Enums;
+using TheplaceEmployeeApp.Data.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Versioning;
 
 namespace TheplaceEmployeeApp.Web.Controllers
 {
     public class EmployeesController : Controller
     {
+        private readonly IEmployeeRepository _employeeRepository;
+
+        public EmployeesController(IEmployeeRepository employeeRepository)
+        {
+            _employeeRepository = employeeRepository;
+        }
+
         // GET: EmployeesController
         public ActionResult Index()
         {
@@ -30,6 +41,31 @@ namespace TheplaceEmployeeApp.Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+
+                var newEmployee = new Employee()
+                {
+                    Id = new Guid(),
+                    FirstName = collection["FirstName"],
+                    LastName = collection["LastName"],
+                    MiddleName = collection["MiddleName"],
+                    EmailAddress = collection["EmailAddress"],
+                    ResidentialAddress = collection["ResidentialAddress"],
+                    SkinColor = Enum.Parse<SkinColor>(collection["SkinColor"]),
+                    BranchName = Enum.Parse<BranchName>(collection["BranchName"]),
+                    Department = Enum.Parse<Department>(collection["Department"]),
+                    Designation = Enum.Parse<Designation>(collection["Designation"]),
+                    StateName = Enum.Parse<StateName>(collection["StateName"]),
+                    Age = int.Parse(collection["Age"]),
+                    PhoneNumber = int.Parse(collection["PhoneNumber"]),
+                  //DateEmployed = DateTime.Now,
+                  //DateOfBirth = DateTime.Now
+                };
+                _employeeRepository.CreateEmployee(newEmployee);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -37,6 +73,7 @@ namespace TheplaceEmployeeApp.Web.Controllers
                 return View();
             }
         }
+
 
         // GET: EmployeesController/Edit/5
         public ActionResult Edit(int id)
