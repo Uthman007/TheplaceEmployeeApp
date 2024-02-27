@@ -1,0 +1,90 @@
+﻿﻿@using TheplaceEmployeeApp.Data.Enums;
+@model TheplaceEmployeeApp.Data.Entities.Employee
+@{
+	ViewData["Title"] = "Add New Employee";
+}
+
+<h1>Add New Employee</h1>
+<hr />
+
+<p>Fill out this form to add an employee to the App.</p>
+
+<div class="row">
+	<div class="col-md-6">
+		<form method="post" >
+			<div class="mb-3">
+				<label asp-for="FirstName" class="control-label"></label>
+				<input asp-for="FirstName" class="form-control" />
+				<span asp-validation-for="FirstName" class="text-danger"></span>
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="LastName" class="control-label"></label>
+				<input asp-for="LastName" class="form-control" />
+				<span asp-validation-for="LastName" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="MiddleName" class="control-label"></label>
+				<input asp-for="MiddleName" class="form-control" />
+				<span asp-validation-for="MiddleName" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Age" class="control-label"></label>
+				<input asp-for="Age" class="form-control" />
+				<span asp-validation-for="Age" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="DateOfBirth" class="control-label"></label>
+				<input asp-for="DateOfBirth" class="form-control" />
+				<span asp-validation-for="DateOfBirth" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="DateEmployed" class="control-label"></label>
+				<input asp-for="DateEmployed" class="form-control" />
+				<span asp-validation-for="DateEmployed" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="EmailAddress" class="control-label"></label>
+				<input asp-for="EmailAddress" class="form-control" />
+				<span asp-validation-for="EmailAddress" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="ResidentialAddress" class="control-label"></label>
+				<input asp-for="ResidentialAddress" class="form-control" />
+				<span asp-validation-for="ResidentialAddress" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="PhoneNumber" class="control-label"></label>
+				<input asp-for="PhoneNumber" class="form-control" />
+				<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="BranchName" class="control-label"></label>
+				<select asp-for="BranchName" asp-items="Html.GetEnumSelectList<BranchName>()" class="form-control"></select>
+				<span asp-validation-for="BranchName" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Department" class="control-label"></label>
+				<select asp-for="Department" asp-items="Html.GetEnumSelectList<Department>()" class="form-control"></select>
+				<span asp-validation-for="Department" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Designation" class="control-label"></label>
+				<select asp-for="Designation" asp-items="Html.GetEnumSelectList<Designation>()" class="form-control"></select>
+				<span asp-validation-for="Designation" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="SkinColor" class="control-label"></label>
+				<select asp-for="SkinColor" asp-items="Html.GetEnumSelectList<SkinColor>()" class="form-control"></select>
+				<span asp-validation-for="SkinColor" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="StateName" class="control-label"></label>
+				<select asp-for="StateName" asp-items="Html.GetEnumSelectList<StateName>()" class="form-control"></select>
+				<span asp-validation-for="StateName" class="text-danger"></span>
+			</div>
+			<button class="btn btn-success" asp-action="Create">Create</button>
+		</form>
+	</div>
+</div>

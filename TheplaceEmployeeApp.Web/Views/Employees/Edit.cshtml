@@ -1,0 +1,62 @@
+﻿﻿@using TheplaceEmployeeApp.Data.Enums;
+@model TheplaceEmployeeApp.Data.Entities.Employee;
+@{
+	ViewData["Title"] = "Update Employee";
+}
+
+<h1>Update Employee</h1>
+<hr />
+
+<p>Fill out this form to update the selected employee with new information.</p>
+
+<div class="row">
+	<div class="col-md-6">
+		<form method="post">
+			<input style="display:none" asp-for="Id" class="form-control" />
+			<input style="display:none" asp-for="DateEmployed" class="form-control" />
+			<div class="mb-3">
+				<label asp-for="FirstName" class="control-label"></label>
+				<input asp-for="FirstName" class="form-control" />
+				<span asp-validation-for="FirstName" class="text-danger"></span>
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="LastName" class="control-label"></label>
+				<input asp-for="LastName" class="form-control" />
+				<span asp-validation-for="LastName" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="MiddleName" class="control-label"></label>
+				<input asp-for="MiddleName" class="form-control" />
+				<span asp-validation-for="MiddleName" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="MiddleName" class="control-label"></label>
+				<input asp-for="MiddleName" class="form-control" />
+				<span asp-validation-for="MiddleName" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="BranchName" class="control-label"></label>
+				<select asp-for="BranchName" asp-items="Html.GetEnumSelectList<BranchName>()" class="form-control"></select>
+				<span asp-validation-for="BranchName" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Department" class="control-label"></label>
+				<select asp-for="Department" asp-items="Html.GetEnumSelectList<Department>()" class="form-control"></select>
+				<span asp-validation-for="Department" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Designation" class="control-label"></label>
+				<select asp-for="Designation" asp-items="Html.GetEnumSelectList<Designation>()" class="form-control"></select>
+				<span asp-validation-for="Designation" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="StateName" class="control-label"></label>
+				<select asp-for="StateName" asp-items="Html.GetEnumSelectList<StateName>()" class="form-control"></select>
+				<span asp-validation-for="StateName" class="text-danger"></span>
+			</div>
+			<button class="btn btn-success">Update</button>
+			<a asp-controller="Books" asp-action="ViewAll" class="btn btn-secondary">Cancel</a>
+		</form>
+	</div>
+</div>

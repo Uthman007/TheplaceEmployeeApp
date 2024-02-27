@@ -1,0 +1,78 @@
+﻿﻿
+@model TheplaceEmployeeApp.Data.Entities.Employee;
+@{
+	ViewData["Title"] = "View Employee Details";
+}
+
+<h1>View Employee Details</h1>
+<hr />
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="card">
+			<div class="card-header">
+				<p>Here are the details of the employee selected.</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">ID:</h5>
+				<p class="card-text">@Model.Id</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">First Name:</h5>
+				<p class="card-text">@Model.FirstName</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Last Name:</h5>
+				<p class="card-text">@Model.LastName</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Middle Name:</h5>
+				<p class="card-text">@Model.MiddleName</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Email Address:</h5>
+				<p class="card-text">@Model.EmailAddress</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Residential Address:</h5>
+				<p class="card-text">@Model.ResidentialAddress</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Age:</h5>
+				<p class="card-text">@Model.Age</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Date of Birth:</h5>
+				<p class="card-text">@Model.DateOfBirth.ToLongDateString()</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Phone Number:</h5>
+				<p class="card-text">@Model.PhoneNumber</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">BranchName:</h5>
+				<p class="card-text">@Model.BranchName</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Department:</h5>
+				<p class="card-text">@Model.Department</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Designation:</h5>
+				<p class="card-text">@Model.Designation</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">State Name:</h5>
+				<p class="card-text">@Model.StateName</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">SkinColor:</h5>
+				<p class="card-text">@Model.SkinColor</p>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Date Employed:</h5>
+				<p class="card-text">@Model.DateEmployed.ToLongDateString()</p>
+			</div>
+		</div>
+	</div>
+</div>

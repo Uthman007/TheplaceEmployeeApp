@@ -1,6 +1,7 @@
 ﻿using TheplaceEmployeeApp.Data.Entities;
 using TheplaceEmployeeApp.Data.Enums;
 using TheplaceEmployeeApp.Data.Repositories;
+using TheplaceEmployeeApp.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Versioning;
@@ -22,22 +23,57 @@ namespace TheplaceEmployeeApp.Web.Controllers
             return View();
         }
 
-        // GET: EmployeesController/Details/5
-        public ActionResult Details(int id)
+        // GET: EmployeesController/List
+        [Route("Employees/view-all")]
+        public ActionResult List(string? searchTerm)
         {
-            return View();
+            var employeelistViewModel = new EmployeeListViewModel();
+
+            var employeesToDisplay = _employeeRepository.GetAllEmployees();
+
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                employeelistViewModel.Employees = employeesToDisplay;
+                employeelistViewModel.SearchTerm = string.Empty;
+                return View("ViewAll", employeelistViewModel);
+            }
+            else
+            {
+                var filteredEmployees = employeesToDisplay.Where(b => b.FirstName.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase)
+                                                           || b.LastName.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase));
+                employeelistViewModel.Employees = filteredEmployees;
+                employeelistViewModel.SearchTerm = searchTerm;
+                return View("ViewAll", employeelistViewModel);
+            }
+        }
+
+        // GET: BooksController/Details/some-guid-value
+        [Route("employees/details/{id}")]
+        public ActionResult Details(Guid id)
+        {
+            var employeeToDisplay = _employeeRepository.GetEmployee(id);
+
+            if (employeeToDisplay == null)
+            {
+                return NotFound();
+            }
+
+            return View(employeeToDisplay);
         }
 
         // GET: EmployeesController/Create
+        [Route("employees/create")]
         public ActionResult Create()
         {
-            return View();
+            var newEmployee = new Employee(); // In future, define a ViewModel for this purpose
+            return View(newEmployee);
         }
 
         // POST: EmployeesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [Route("employees/create")]
+        public ActionResult Create(Employee postedEmployee)
         {
             try
             {
@@ -48,21 +84,21 @@ namespace TheplaceEmployeeApp.Web.Controllers
 
                 var newEmployee = new Employee()
                 {
-                    Id = new Guid(),
-                    FirstName = collection["FirstName"],
-                    LastName = collection["LastName"],
-                    MiddleName = collection["MiddleName"],
-                    EmailAddress = collection["EmailAddress"],
-                    ResidentialAddress = collection["ResidentialAddress"],
-                    SkinColor = Enum.Parse<SkinColor>(collection["SkinColor"]),
-                    BranchName = Enum.Parse<BranchName>(collection["BranchName"]),
-                    Department = Enum.Parse<Department>(collection["Department"]),
-                    Designation = Enum.Parse<Designation>(collection["Designation"]),
-                    StateName = Enum.Parse<StateName>(collection["StateName"]),
-                    Age = int.Parse(collection["Age"]),
-                    PhoneNumber = int.Parse(collection["PhoneNumber"]),
-                  //DateEmployed = DateTime.Now,
-                  //DateOfBirth = DateTime.Now
+                    Id = Guid.NewGuid(),
+                    FirstName = postedEmployee.FirstName,
+                    LastName = postedEmployee.LastName,
+                    MiddleName = postedEmployee.MiddleName,
+                    EmailAddress = postedEmployee.EmailAddress,
+                    ResidentialAddress = postedEmployee.ResidentialAddress,
+                    SkinColor = postedEmployee.SkinColor,
+                    BranchName = postedEmployee.BranchName,
+                    Department = postedEmployee.Department,
+                    Designation = postedEmployee.Designation,
+                    StateName = postedEmployee.StateName,
+                    Age = postedEmployee.Age,
+                    PhoneNumber = postedEmployee.PhoneNumber,
+                    DateEmployed = postedEmployee.DateEmployed,
+                    DateOfBirth = postedEmployee.DateOfBirth
                 };
                 _employeeRepository.CreateEmployee(newEmployee);
 
@@ -75,19 +111,37 @@ namespace TheplaceEmployeeApp.Web.Controllers
         }
 
 
-        // GET: EmployeesController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: EmployeesController/Edit/some-guid-value
+        [Route("employees/edit/{id}")]
+        public ActionResult Edit(Guid id)
         {
-            return View();
+            var employeeToUpdate = _employeeRepository.GetEmployee(id);
+            if (employeeToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            return View(employeeToUpdate);
         }
 
-        // POST: EmployeesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpPost, Route("employees/edit/{id}"), ValidateAntiForgeryToken]
+        public ActionResult Edit(Guid id, Employee postedEmployee)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+
+                if (id != postedEmployee.Id)
+                {
+                    return BadRequest();
+                }
+
+                //postedEmployee.Updated = DateTime.Now;
+                _employeeRepository.UpdateEmployee(postedEmployee);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -96,25 +150,40 @@ namespace TheplaceEmployeeApp.Web.Controllers
             }
         }
 
-        // GET: EmployeesController/Delete/5
-        public ActionResult Delete(int id)
+        // GET: BooksController/Delete/some-guid-value
+        [Route("employees/delete/{id}")]
+        public ActionResult Delete(Guid id)
         {
-            return View();
+            var employeeToDelete = _employeeRepository.GetEmployee(id);
+            if (employeeToDelete == null)
+            {
+                return NotFound();
+            }
+            return View(employeeToDelete);
         }
 
-        // POST: EmployeesController/Delete/5
+        // POST: EmployeesController/Delete/some-guid-value
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Route("employees/delete/{id}")]
+        public ActionResult ConfirmDelete(Guid id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var employeeToDelete = _employeeRepository.GetEmployee(id);
+                if (employeeToDelete == null)
+                {
+                    return NotFound();
+                }
+
+                _employeeRepository.DeleteEmployee(id);
+                return RedirectToAction(nameof(List));
             }
             catch
             {
                 return View();
             }
+
         }
     }
 }
