@@ -32,13 +32,11 @@ namespace TheplaceEmployeeApp.Data.Entities
         [Required]
         public string ResidentialAddress { get; set; }
 
-        [Required]
-        [Range(10, 100, ErrorMessage = "Please enter valid Age")]
+        [Required, Range(10, 100, ErrorMessage = "Please enter valid Age")]
         public int Age { get; set; }
 
-        [Required]
-        [Range(2340000000000, 9999999999999, ErrorMessage = "Please enter valid phone number starting 234...")]
-        public int PhoneNumber { get; set; }
+        [Required, DataType(DataType.PhoneNumber)]
+        public long PhoneNumber { get; set; }
 
         [Required]
         public DateTime DateEmployed { get; set; }

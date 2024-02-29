@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheplaceEmployeeApp.Web", "TheplaceEmployeeApp.Web\TheplaceEmployeeApp.Web.csproj", "{B176DAD3-2ADE-4E74-9515-DFF85305A13D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheplaceEmployeeApp.Data", "TheplaceEmployeeApp.Data\TheplaceEmployeeApp.Data.csproj", "{5BBE01B5-3FE5-4023-BB7A-F9107522D09E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheplaceEmployeeApp.Data", "TheplaceEmployeeApp.Data\TheplaceEmployeeApp.Data.csproj", "{5BBE01B5-3FE5-4023-BB7A-F9107522D09E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
